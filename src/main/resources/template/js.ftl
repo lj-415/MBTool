@@ -1,14 +1,14 @@
 function add() {
-	self.location = "$!webPath/add${className}";
+	self.location = "@_@!webPath/add${className}";
 }
 
 function edit(id) {
-	self.location = "$!webPath/edit${className}/" + id;
+	self.location = "@_@!webPath/edit${className}/" + id;
 }
 
 function update(thiz, id, status) {
 	$.ajax({
-		url: "$!webPath/sys/update${className}",
+		url: "@_@!webPath/sys/update${className}",
 		type: "post",
 		dataType: "json",
 		data: {
