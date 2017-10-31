@@ -88,7 +88,7 @@ public class CreateBean {
 	}
 	
 	/**
-	 * 列名转驼峰类型，首字母大小，列明格式为col_name，或name
+	 * 列名转驼峰类型，首字母大写，列明格式为col_name，或name
 	 * @param columnName
 	 * @return
 	 */

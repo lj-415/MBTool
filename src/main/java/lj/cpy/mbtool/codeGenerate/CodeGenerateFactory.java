@@ -23,15 +23,16 @@ public class CodeGenerateFactory {
 
 	/**
 	 * @param tableName：表名
+	 * @param className：类对象名
 	 * @param remark：注释
 	 * @param keyType：主键生成方式 01:UUID 02:自增
 	 * @param isHtml:是否生产html页面和js文件
 	 */
-	public static void codeGenerate(String tableName, String remark, String keyType, boolean isHtml) {
+	public static void codeGenerate(String tableName, String className, String remark, String keyType, boolean isHtml) {
 		CreateBean createBean = new CreateBean();
 		createBean.setDbInfo(url, username, passWord);
 
-		String className = createBean.getTableNameToClassName(tableName);
+		//String className = createBean.getTableNameToClassName(tableName);
 		String lowerName = className.substring(0, 1).toLowerCase() + className.substring(1, className.length());
 
 		String srcPath = projectPath + CodeResource.source_root_package + "/";
