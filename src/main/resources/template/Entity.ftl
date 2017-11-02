@@ -7,6 +7,8 @@ import $!columnData.dataType;
 #end
 #end
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * @description: ${remark}
  * @author ${author}
@@ -34,4 +36,12 @@ public class ${className} implements Serializable {
 	}
 #end
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return JSON.toJSONString(this, false);
+	}
 }
