@@ -37,7 +37,7 @@ ${sql_insert_value}
 		</trim>
 	</sql>
 
-	<select id="get${className}ByPrimaryKey" parameterType="String" resultMap="${lowerName}Mapper">
+	<select id="get${className}ByPrimaryKey" parameterType="${primaryKeyShortDataType}" resultMap="${lowerName}Mapper">
 		select
 		<include refid="sql_columns" />
 		from ${tableName} where ${primaryKey} = #{param1}
@@ -77,7 +77,7 @@ ${sql_insert_value}
 		where ${primaryKey} = #{param1}
 	</update>
 
-	<delete id="delete" parameterType="String">
+	<delete id="delete" parameterType="${primaryKeyShortDataType}">
 		delete from ${tableName} where ${primaryKey} = #{param1}
 	</delete>
 

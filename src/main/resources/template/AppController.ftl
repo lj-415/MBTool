@@ -1,5 +1,8 @@
 package ${bussPackage}.controller.app;
 
+#if($!primaryKeyDataType.indexOf("java.lang") < 0)
+import $!primaryKeyDataType;
+#end
 import java.util.Date;
 import java.util.List;
 
@@ -53,7 +56,7 @@ public class App${className}Controller extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/app/get${className}Detail")
-	public Object get${className}Detail(@RequestParam("${primaryKey}") String ${primaryKey}, @ModelAttribute("page") Page page) {
+	public Object get${className}Detail(@RequestParam("${primaryKey}") ${primaryKeyShortDataType} ${primaryKey}, @ModelAttribute("page") Page page) {
 		${className} ${lowerName} = ${lowerName}Service.get${className}ByPrimaryKey(${primaryKey});
 		if (${lowerName} == null) {
 			initErroeMsg(map, Constants.STATUS_MSG.REQ_ID_NOTEXITS.getKey(), Constants.STATUS_MSG.REQ_ID_NOTEXITS.getValue());
@@ -95,7 +98,7 @@ public class App${className}Controller extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/app/delete${className}")
-	public Object delete${className}(@RequestParam("${primaryKey}") String ${primaryKey}) {
+	public Object delete${className}(@RequestParam("${primaryKey}") ${primaryKeyShortDataType} ${primaryKey}) {
 		int flag = ${lowerName}Service.delete(${primaryKey});
 		
 		if (flag <= 0) {

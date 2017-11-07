@@ -164,6 +164,8 @@ public class CreateBean {
 				if (StringUtils.equals(primaryKeyType, "01")) {
 					if (StringUtils.equals(columnData.getColumnKey(), "PRI")) {
 						context.put("primaryKey", columnData.getPropertyName());
+						context.put("primaryKeyDataType", columnData.getDataType());
+						context.put("primaryKeyShortDataType", columnData.getShortDataType());
 						// 插入列
 						sql_insert_column.append("\t\t\t<if test=\"1 == 1\">, ").append(columnData.getPropertyName()).append("</if>\r");
 						// 插入值
@@ -178,6 +180,8 @@ public class CreateBean {
 				} else {
 					if (StringUtils.equals(columnData.getColumnKey(), "PRI")) {
 						context.put("primaryKey", columnData.getPropertyName());
+						context.put("primaryKeyDataType", columnData.getDataType());
+						context.put("primaryKeyShortDataType", columnData.getShortDataType());
 						// 插入列
 //						sql_insert_column.append("\t\t\t<if test=\"1 == 1\">, ").append(columnData.getPropertyName()).append("</if>\r");
 						// 插入值
@@ -247,19 +251,49 @@ public class CreateBean {
 	 */
 	public void transDataType(ColumnData columnData, String dataType, String precision, String scale) {
 		dataType = dataType.toLowerCase();
-		if (dataType.contains("char")) {
+		if (StringUtils.equals(dataType, "char") || StringUtils.equals(dataType, "varchar") || StringUtils.equals(dataType, "text")) {
 			columnData.setDataType("java.lang.String");
 			columnData.setShortDataType("String");
-		} else if (dataType.contains("int")) {
+		} else if (StringUtils.equals(dataType, "blob")) {
+			columnData.setDataType("java.lang.byte");
+			columnData.setShortDataType("byte[]");
+		} else if (StringUtils.equals(dataType, "int")) {
+			columnData.setDataType("java.lang.Long");
+			columnData.setShortDataType("Long");
+		} else if (StringUtils.equals(dataType, "tinyint") || StringUtils.equals(dataType, "smallint") || StringUtils.equals(dataType, "mediumint")) {
 			columnData.setDataType("java.lang.Integer");
 			columnData.setShortDataType("Integer");
-		} else if (dataType.contains("float")) {
+		} else if (StringUtils.equals(dataType, "bigint")) {
+			columnData.setDataType("java.math.BigInteger");
+			columnData.setShortDataType("BigInteger");
+		} else if (StringUtils.equals(dataType, "float")) {
 			columnData.setDataType("java.lang.Float");
 			columnData.setShortDataType("Float");
-		} else if (dataType.contains("double")) {
+		} else if (StringUtils.equals(dataType, "double")) {
 			columnData.setDataType("java.lang.Double");
 			columnData.setShortDataType("Double");
-		} else if (dataType.contains("number")) {
+		} else if (StringUtils.equals(dataType, "bit")) {
+			columnData.setDataType("java.lang.Boolean");
+			columnData.setShortDataType("Boolean");
+		} else if (StringUtils.equals(dataType, "decimal")) {
+			columnData.setDataType("java.math.BigDecimal");
+			columnData.setShortDataType("BigDecimal");
+		} else if (StringUtils.equals(dataType, "date") || StringUtils.equals(dataType, "year")) {
+			columnData.setDataType("java.sql.Date");
+			columnData.setShortDataType("Date");
+		} else if (StringUtils.equals(dataType, "time")) {
+			columnData.setDataType("java.sql.Time");
+			columnData.setShortDataType("Time");
+		} else if (StringUtils.equals(dataType, "datetime")) {
+			columnData.setDataType("java.sql.Timestamp");
+			columnData.setShortDataType("Timestamp");
+		} else if (StringUtils.equals(dataType, "timestamp")) {
+			columnData.setDataType("java.sql.Timestamp");
+			columnData.setShortDataType("Timestamp");
+		} else if (StringUtils.equals(dataType, "clob")) {
+			columnData.setDataType("java.sql.Clob");
+			columnData.setShortDataType("Clob");
+		} else if (StringUtils.equals(dataType, "number")) {
 			if ((StringUtils.isNotBlank(scale)) && (Integer.parseInt(scale) > 0)) {
 				columnData.setDataType("java.math.BigDecimal");
 				columnData.setShortDataType("BigDecimal");
@@ -270,22 +304,11 @@ public class CreateBean {
 				columnData.setDataType("java.lang.Integer");
 				columnData.setShortDataType("Integer");
 			}
-		} else if (dataType.contains("decimal")) {
-			columnData.setDataType("java.math.BigDecimal");
-			columnData.setShortDataType("BigDecimal");
-		} else if (dataType.contains("date")) {
-			columnData.setDataType("java.util.Date");
-			columnData.setShortDataType("Date");
-		} else if (dataType.contains("time")) {
-			columnData.setDataType("java.sql.Timestamp");
-			columnData.setShortDataType("Timestamp");
-		} else if (dataType.contains("clob")) {
-			columnData.setDataType("java.sql.Clob");
-			columnData.setShortDataType("Clob");
 		} else {
 			columnData.setDataType("java.lang.Object");
 			columnData.setShortDataType("Object");
 		}
+		
 	}
 	
 	public String getNullAble(String nullable) {

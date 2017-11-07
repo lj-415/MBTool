@@ -21,7 +21,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 	private ${className}Mapper ${lowerName}Mapper;
 
 	@Override
-	public ${className} get${className}ByPrimaryKey(String ${primaryKey}) {
+	public ${className} get${className}ByPrimaryKey(${primaryKeyShortDataType} ${primaryKey}) {
 		// TODO Auto-generated method stub
 		return ${lowerName}Mapper.get${className}ByPrimaryKey(${primaryKey});
 	}
@@ -45,7 +45,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 	}
 
 	@Override
-	public int delete(String ${primaryKey}) {
+	public int delete(${primaryKeyShortDataType} ${primaryKey}) {
 		// TODO Auto-generated method stub
 		return ${lowerName}Mapper.delete(${primaryKey});
 	}

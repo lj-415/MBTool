@@ -11,7 +11,7 @@ import ${bussPackage}.entity.${className};
  */
 public interface ${className}Service {
 	
-	public ${className} get${className}ByPrimaryKey(String ${primaryKey});
+	public ${className} get${className}ByPrimaryKey(${primaryKeyShortDataType} ${primaryKey});
 
 	public List<${className}> get${className}s(${className} ${lowerName});
 
@@ -19,6 +19,6 @@ public interface ${className}Service {
 
 	public int update(${className} ${lowerName});
 
-	public int delete(String ${primaryKey});
+	public int delete(${primaryKeyShortDataType} ${primaryKey});
 	
 }

@@ -1,5 +1,8 @@
 package ${bussPackage}.controller.system;
 
+#if($!primaryKeyDataType.indexOf("java.lang") < 0)
+import $!primaryKeyDataType;
+#end
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -59,7 +62,7 @@ public class ${className}Controller extends BaseController {
 	}
 	
 	@RequestMapping("/edit${className}/{${primaryKey}}")
-	public ModelAndView edit${className}(@PathVariable(value = "${primaryKey}") String ${primaryKey}) {
+	public ModelAndView edit${className}(@PathVariable(value = "${primaryKey}") ${primaryKeyShortDataType} ${primaryKey}) {
 		ModelAndView mv = new JModelAndView("${lowerName}/add${className}", configService.getSysConfig(), 1, request, response);
 		${className} ${lowerName} = ${lowerName}Service.get${className}ByPrimaryKey(${primaryKey});
 		mv.addObject("${lowerName}", ${lowerName});
