@@ -257,10 +257,7 @@ public class CreateBean {
 		} else if (StringUtils.equals(dataType, "blob")) {
 			columnData.setDataType("java.lang.byte");
 			columnData.setShortDataType("byte[]");
-		} else if (StringUtils.equals(dataType, "int")) {
-			columnData.setDataType("java.lang.Long");
-			columnData.setShortDataType("Long");
-		} else if (StringUtils.equals(dataType, "tinyint") || StringUtils.equals(dataType, "smallint") || StringUtils.equals(dataType, "mediumint")) {
+		} else if (StringUtils.equals(dataType, "int") || StringUtils.equals(dataType, "tinyint") || StringUtils.equals(dataType, "smallint") || StringUtils.equals(dataType, "mediumint")) {
 			columnData.setDataType("java.lang.Integer");
 			columnData.setShortDataType("Integer");
 		} else if (StringUtils.equals(dataType, "bigint")) {
