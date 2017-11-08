@@ -14,36 +14,23 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- commons-lang3版本 -->
 		<commons-lang3-version>3.6</commons-lang3-version>
-		<!-- log4j日志文件管理包版本 -->
-		<log4j.version>1.2.17</log4j.version>
+		<!-- slf4j日志版本 -->
 		<slf4j.version>1.7.25</slf4j.version>
+		<!-- velocity版本 -->
 		<velocity.version>1.7</velocity.version>
 		<velocity-tools.version>2.0</velocity-tools.version>
-		<velocity-tools.version>2.0</velocity-tools.version>
+		<!-- mysql驱动版本 -->
 		<mysql-connector-java.version>6.0.6</mysql-connector-java.version>
+		<!-- junit版本 -->
+		<junit.version>3.8.1</junit.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3-version}</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -70,7 +57,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
