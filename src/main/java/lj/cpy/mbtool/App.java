@@ -12,13 +12,13 @@ public class App {
 	
 	public static void main(String[] args) {
 		// 表名
-		String tableName = "t_member";
+		String tableName = "t_user";
 		// 类对象名
-		String className = "Member";
+		String className = "User";
 		// 备注
-		String remark = "会员";
+		String remark = "员工";
 		// 主键生成方式 01:UUID 02:自增
-		String keyType = CodeResource.KEY_TYPE_01;
+		String keyType = CodeResource.KEY_TYPE_02;
 		// 是否生成html文件
 		boolean isCreateHtml = true;
 

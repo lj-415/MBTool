@@ -1,9 +1,9 @@
 function add() {
-	self.location = "@_@!webPath/add${className}";
+	self.location = "#[[$]]#!webPath/add${className}";
 }
 
 function edit(id) {
-	self.location = "@_@!webPath/edit${className}/" + id;
+	self.location = "#[[$]]#!webPath/edit${className}/" + id;
 }
 
 function update(thiz, id, status) {
@@ -23,16 +23,16 @@ function update(thiz, id, status) {
 		v_status_html = '';
 		v_btn_html = '';
 	}
-	$.ajax({
-		url: "@_@!webPath/sys/update${className}",
+	#[[$]]#.ajax({
+		url: "#[[$]]#!webPath/sys/update${className}",
 		type: "post",
 		dataType: "json",
 		data: v_data,
 		success: function(data) {
 			layer.msg(data.message);
-			$('#'+id).html(v_status_html);
-			$(thiz).after(v_btn_html);
-			$(thiz).remove();
+			#[[$]]#('#'+id).html(v_status_html);
+			#[[$]]#(thiz).after(v_btn_html);
+			#[[$]]#(thiz).remove();
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			var data = JSON.parse(jqXHR.responseText);
@@ -42,6 +42,6 @@ function update(thiz, id, status) {
 }
 
 function query() {
-	$('#pageNum').val(1);
-	$('#queryForm').submit();
+	#[[$]]#('#pageNum').val(1);
+	#[[$]]#('#queryForm').submit();
 }
