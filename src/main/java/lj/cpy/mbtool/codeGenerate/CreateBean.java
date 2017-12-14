@@ -20,7 +20,7 @@ public class CreateBean {
 
 	static {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName(CodeResource.DRIVER_NAME);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -148,17 +148,17 @@ public class CreateBean {
 			StringBuffer sql_insert_value = new StringBuffer();// 插入值
 			for (ColumnData columnData : columnDatas) {
 				// 列名
-				sql_columns.append(columnData.getPropertyName()).append(", ");
+				sql_columns.append(columnData.getColumnName()).append(", ");
 				
 				// 查询条件
 				if (columnData.getDataType().indexOf("Integer") > 0 || columnData.getDataType().indexOf("Float") > 0 || columnData.getDataType().indexOf("Double") > 0 || columnData.getDataType().indexOf("Long") > 0 || columnData.getDataType().indexOf("BigDecimal") > 0 ) {
-					sql_condition.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">and ").append(columnData.getPropertyName()).append(" = #{").append(columnData.getPropertyName()).append("}</if>\r");
+					sql_condition.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">and ").append(columnData.getColumnName()).append(" = #{").append(columnData.getPropertyName()).append("}</if>\r");
 				} else {
-					sql_condition.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null and ").append(columnData.getPropertyName()).append(" != \'\'\">and ").append(columnData.getPropertyName()).append(" = #{").append(columnData.getPropertyName()).append("}</if>\r");
+					sql_condition.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null and ").append(columnData.getPropertyName()).append(" != \'\'\">and ").append(columnData.getColumnName()).append(" = #{").append(columnData.getPropertyName()).append("}</if>\r");
 				}
 				
 				// 更新
-				sql_update_set.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">, ").append(columnData.getPropertyName()).append(" = #{").append(columnData.getPropertyName()).append("}</if>\r");
+				sql_update_set.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">, ").append(columnData.getColumnName()).append(" = #{").append(columnData.getPropertyName()).append("}</if>\r");
 				
 				// 插入
 				if (StringUtils.equals(primaryKeyType, "01")) {
@@ -167,12 +167,12 @@ public class CreateBean {
 						context.put("primaryKeyDataType", columnData.getDataType());
 						context.put("primaryKeyShortDataType", columnData.getShortDataType());
 						// 插入列
-						sql_insert_column.append("\t\t\t<if test=\"1 == 1\">, ").append(columnData.getPropertyName()).append("</if>\r");
+						sql_insert_column.append("\t\t\t<if test=\"1 == 1\">, ").append(columnData.getColumnName()).append("</if>\r");
 						// 插入值
 						sql_insert_value.append("\t\t\t<if test=\"1 == 1\">, ").append("#{").append(columnData.getPropertyName()).append("}</if>\r");
 					} else {
 						// 插入列
-						sql_insert_column.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">, ").append(columnData.getPropertyName()).append("</if>\r");
+						sql_insert_column.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">, ").append(columnData.getColumnName()).append("</if>\r");
 						// 插入值
 						sql_insert_value.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">, ").append("#{").append(columnData.getPropertyName()).append("}</if>\r");
 					}
@@ -188,7 +188,7 @@ public class CreateBean {
 //						sql_insert_value.append("\t\t\t<if test=\"1 == 1\">, ").append("#{").append(columnData.getPropertyName()).append("}</if>\r");
 					} else {
 						// 插入列
-						sql_insert_column.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">, ").append(columnData.getPropertyName()).append("</if>\r");
+						sql_insert_column.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">, ").append(columnData.getColumnName()).append("</if>\r");
 						// 插入值
 						sql_insert_value.append("\t\t\t<if test=\"").append(columnData.getPropertyName()).append(" != null\">, ").append("#{").append(columnData.getPropertyName()).append("}</if>\r");
 					}

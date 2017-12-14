@@ -37,13 +37,22 @@ ${sql_insert_value}
 		</trim>
 	</sql>
 
-	<select id="get${className}ByPrimaryKey" parameterType="${primaryKeyShortDataType}" resultMap="${lowerName}Mapper">
+	<select id="queryByPrimaryKey" parameterType="${primaryKeyShortDataType}" resultMap="${lowerName}Mapper">
 		select
 		<include refid="sql_columns" />
 		from ${tableName} where ${primaryKey} = #{param1}
 	</select>
 
-	<select id="get${className}s" parameterType="${lowerName}" resultMap="${lowerName}Mapper">
+	<select id="queryByPrimaryKeys" parameterType="List" resultMap="${lowerName}Mapper">
+		select
+		<include refid="sql_columns" />
+		from ${tableName} where ${primaryKey} in
+		<foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="getList" parameterType="${lowerName}" resultMap="${lowerName}Mapper">
 		select
 		<include refid="sql_columns" />
 		from ${tableName}
@@ -74,11 +83,18 @@ ${sql_insert_value}
 	<update id="update" parameterType="${lowerName}">
 		update ${tableName}
 		<include refid="sql_update_set" />
-		where ${primaryKey} = #{param1}
+		where ${primaryKey} = #[[#{]]#${primaryKey}#[[}]]#
 	</update>
 
-	<delete id="delete" parameterType="${primaryKeyShortDataType}">
+	<delete id="deleteByPrimaryKey" parameterType="${primaryKeyShortDataType}">
 		delete from ${tableName} where ${primaryKey} = #{param1}
+	</delete>
+	
+	<delete id="deleteByPrimaryKeys" parameterType="List">
+		delete from ${tableName} where ${primaryKey} in
+		<foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
 	</delete>
 
 </mapper>

@@ -1,136 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="ThemeBucket">
-    <link rel="shortcut icon" href="#[[$]]#!webPath/resources/images/logo_icon.png" type="image/png">
-    <title>${remark}管理</title>
-    
-    <link href="#[[$]]#!webPath/resources/js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
-    <link href="#[[$]]#!webPath/resources/css/style.css" rel="stylesheet">
-    <link href="#[[$]]#!webPath/resources/css/style-responsive.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-	<script src="#[[$]]#!webPath/resources/js/html5shiv.js"></script>
-	<script src="#[[$]]#!webPath/resources/js/respond.min.js"></script>
-	<![endif]-->
-	<!-- 文字太多转成点点 -->
-	<style type="text/css">
-		.table-data {
-			table-layout: fixed;
-		}
-		.table-data td {
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-		}
-	</style>
+    <title>${remark}列表</title>
+    <!-- _meta -->
+    #[[#]]#parse("./system/_meta.html")
+    <!-- _meta -->
 </head>
 
-<body class="sticky-header">
-    <section>
-        <!-- left side start-->
-        #[[#]]#parse("./system/nav.html")
-        <!-- left side end-->
-        <!-- main content start-->
-        <div class="main-content">
-            <!-- header section start-->
-            #[[#]]#parse("./system/header.html")
-            <!-- header section end-->
-            <!-- page heading start-->
-            <div class="page-heading">
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#[[$]]#!webPath/admin">首页</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">业务管理</a>
-                    </li>
-                    <li class="active">${remark}管理</li>
-                </ul>
-            </div>
-            <!-- page heading end-->
-            <!--body wrapper start-->
-            <div class="wrapper">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <section class="panel">
-                        	<form id="queryForm" action="#[[$]]#!webPath/${lowerName}s" method="post">
-	                        	<header class="panel-heading">
-						            &nbsp;
-	                        		<span class="tools pull-left col-md-10">
-	                        			<div class="row">
-	                        				<div class="col-md-2 form-group">
-							                	<input class="form-control" type="text" placeholder="姓名或介绍" name="searchKey" value="#[[$]]#!qrCond.searchKey">
-	                        				</div>
-	                        				<div class="col-md-2 form-group">
-								                <select class="form-control" name="status">
-			                                        <option value="">状态</option>
-			                                        <option value="0" #[[#]]#if(#[[$]]#!qrCond.status == 0)selected#[[#]]#end>正常</option>
-			                                        <option value="-1" #[[#]]#if(#[[$]]#!qrCond.status == -1)selected#[[#]]#end>删除</option>
-		                                    	</select>
-	                        				</div>
-							         	</div>
-						            </span>
-	                                <span class="tools pull-right">
-						                <button class="btn btn-primary btn-sm" type="button" onclick="query()">搜 索</button>
-						                <button class="btn btn-primary btn-sm" type="button" onclick="add()">新 增</button>
-						             </span>
-	                            </header>
-	                            <div class="panel-body">
-	                                <div class="adv-table">
-	                                    <table class="display table table-bordered table-striped">
-	                                        <thead>
-	                                            <tr>
-	                                                <th class="col-md-1">ID</th>
-	                                                <th class="col-md-1">状态</th>
-	                                                <th class="col-md-1">操作</th>
-	                                            </tr>
-	                                        </thead>
-	                                        <tbody>
-	                                        	#[[#]]#set(#[[$]]#items = #[[$]]#!resultPages.list)
-	                                            #[[#]]#foreach(#[[$]]#item in #[[$]]#!items)
-	                                            <tr class="gradeA">
-	                                                <td>#[[$]]#!item.${primaryKey}</td>
-	                                                <td id="#[[$]]#!item.${primaryKey}">#[[#]]#if(#[[$]]#!item.status == -1)删除#[[#]]#else正常#[[#]]#end</td>
-	                                                <td class="center">
-	                                                	<button class="btn btn-info btn-xs" type="button" onclick="edit('#[[$]]#!item.${primaryKey}')" style="margin: 4px;" style="margin: 4px;">编 辑</button>
-	                                                	#[[#]]#if(#[[$]]#!item.status == "0")
-	                                                	<button class="btn btn-danger btn-xs" type="button" onclick="update(this, '#[[$]]#!item.${primaryKey}', -1)">删 除</button>
-	                                                	#[[#]]#else
-	                                                	<button class="btn btn-primary btn-xs" type="button" onclick="update(this, '#[[$]]#!item.${primaryKey}', 0)">启 用</button>
-	                                                	#[[#]]#end
-	                                                </td>
-	                                            </tr>
-	                                            #[[#]]#end
-	                                        </tbody>
-	                                    </table>
-	                                    <span class="tools pull-right">
-	                                    	#[[#]]#parse("./system/pager.html")
-	                                    </span>
-	                                </div>
-	                            </div>
-                        	</form>
-                        </section>
-                    </div>
-                </div>
-            </div>
-            <!--body wrapper end-->
-            <!--footer section start-->
-            #[[#]]#parse("./system/footer.html")
-            <!--footer section end-->
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        #[[#]]#parse("./system/_header.html")
+        <!-- Left side column. contains the logo and sidebar -->
+        #[[#]]#parse("./system/_menu.html")
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>${remark}列表</h1>
+                <ol class="breadcrumb">
+                    <li><a href="#[[$]]#!webPath/admin"><i class="fa fa-dashboard"></i>首页</a></li>
+        			<li><a href="javascript:void(0);">${remark}管理</a></li>
+        			<li class="active">${remark}列表</li>
+                </ol>
+            </section>
+            <!-- Main content -->
+            <section class="content">
+            	<div class="row">
+            		<div class="col-xs-12">
+           				<div class="box box-info">
+           					<div class="form-horizontal">
+           						<div class="box-body">
+           							<div class="col-sm-4">
+	           							<div class="form-group">
+			           						<div class="input-group">
+				            					<input type="text" onfocus="WdatePicker({maxDate:'#F{#[[$]]#dp.#[[$]]#D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="form-control Wdate" placeholder="添加日期">
+											    <span class="input-group-addon">-</span>
+									            <input type="text" onfocus="WdatePicker({minDate:'#F{#[[$]]#dp.#[[$]]#D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="form-control Wdate" placeholder="添加日期">
+											</div>
+			          					</div>
+           							</div>
+           							<div class="col-sm-4">
+	           							<div class="form-group">
+								            <input type="text" class="form-control" placeholder="输入名称" id="searchKey" name="searchKey">
+			          					</div>
+		          					</div>
+           							<div class="col-sm-4">
+	           							<div class="form-group">
+	           								<button type="submit" class="btn btn-success pull-right" onclick="loadData()">搜${remark}</button>
+			          					</div>
+		          					</div>
+           						</div>
+           					</div>
+				        </div>
+			        </div>
+            		<div class="col-xs-12">
+            			<div class="box box-info">
+           					<div class="box-header">
+					            <button type="submit" class="btn btn-danger permission_del_all" onclick="delAll('#[[$]]#!webPath/sys/del${className}')">批量删除</button>
+					            <button type="submit" class="btn btn-info permission_add" onclick="showPage('添加${remark}','#[[$]]#!webPath/add${className}', 60, 60)">添加${remark}</button>
+           					</div>
+           					<div class="box-body permission_view">
+					        	<table id="_data" class="table table-bordered table-hover">
+						            <thead>
+						                <tr>
+						                    <th width="25"><input type="checkbox" name="" value="" onclick="selectAll(this)"></th>
+											<th width="70">状态</th>
+											<th width="100">操作</th>
+						                </tr>
+						            </thead>
+						            <tbody id="tb_data">
+										
+						            </tbody>
+						        </table>
+						        <div id="div_pagination" style="float: right;"></div>
+					        </div>
+				        </div>
+			        </div>
+		        </div>
+	        </section>
         </div>
-        <!-- main content end-->
-    </section>
-    
-    #[[#]]#parse("./system/commPage.html")
-    <!--common scripts for all pages-->
-    <script src="#[[$]]#!webPath/resources/js/scripts.js"></script>
-    <script src="${lowerName}.js"></script>
-    
+		<!-- /.content-wrapper -->
+    	#[[#]]#parse("./system/_footer.html")
+        <!-- Control Sidebar -->
+        #[[#]]#parse("./system/_sidebar.html")
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    #[[#]]#parse("./system/_script.html")
+    <script type="text/javascript">
+    	#[[#]]#parse("./system/${lowerName}/${lowerName}.js")
+    </script>
 </body>
 
 </html>

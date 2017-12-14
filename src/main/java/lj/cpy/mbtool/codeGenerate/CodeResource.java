@@ -6,7 +6,7 @@ public class CodeResource {
 	private static final ResourceBundle BUNDLE_DATABASE = ResourceBundle.getBundle("database");
 	private static final ResourceBundle BUNDLE_CONFIG = ResourceBundle.getBundle("config");
 
-	public static String DIVER_NAME = "com.mysql.jdbc.Driver";
+	public static String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
 	public static String URL = "jdbc:mysql://localhost:3306/sys?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false";
 	public static String USERNAME = "root";
 	public static String PASSWORD = "root";
@@ -29,7 +29,7 @@ public class CodeResource {
 	public static String author = "China";
 
 	static {
-		DIVER_NAME = getDiverName();
+		DRIVER_NAME = getDriverName();
 		URL = getUrl();
 		USERNAME = getUserName();
 		PASSWORD = getPassword();
@@ -50,8 +50,8 @@ public class CodeResource {
 		}
 	}
 
-	public static final String getDiverName() {
-		return BUNDLE_DATABASE.getString("diver_name");
+	public static final String getDriverName() {
+		return BUNDLE_DATABASE.getString("driver_name");
 	}
 
 	public static final String getUrl() {

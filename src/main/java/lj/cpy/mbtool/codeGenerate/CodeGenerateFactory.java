@@ -27,8 +27,9 @@ public class CodeGenerateFactory {
 	 * @param remark：注释
 	 * @param keyType：主键生成方式 01:UUID 02:自增
 	 * @param isHtml:是否生产html页面和js文件
+	 * @param templatePath:模板路径
 	 */
-	public static void codeGenerate(String tableName, String className, String remark, String keyType, boolean isHtml) {
+	public static void codeGenerate(String tableName, String className, String remark, String keyType, boolean isHtml, String templatePath) {
 		CreateBean createBean = new CreateBean();
 		createBean.setDbInfo(url, username, passWord);
 
@@ -63,16 +64,17 @@ public class CodeGenerateFactory {
 		context.put("author", CodeResource.getAuthor());
 		createBean.initTableInfo(context, tableName);
 
-		CreateFile.writerPage(context, "Entity.ftl", pckPath, entityPath);
-		CreateFile.writerPage(context, "Mapper.ftl", pckPath, mapperPath);
-		CreateFile.writerPage(context, "MapperXml.ftl", pckPath, mapperXmlPath);
-		CreateFile.writerPage(context, "Service.ftl", pckPath, servicePath);
-		CreateFile.writerPage(context, "ServiceImpl.ftl", pckPath, serviceImplPath);
-		CreateFile.writerPage(context, "Controller.ftl", pckPath, controllerPath);
-		CreateFile.writerPage(context, "AppController.ftl", pckPath, appControllerPath);
+		CreateFile createFile = new CreateFile(templatePath);
+		createFile.writerPage(context, "Entity.ftl", pckPath, entityPath);
+		createFile.writerPage(context, "Mapper.ftl", pckPath, mapperPath);
+		createFile.writerPage(context, "MapperXml.ftl", pckPath, mapperXmlPath);
+		createFile.writerPage(context, "Service.ftl", pckPath, servicePath);
+		createFile.writerPage(context, "ServiceImpl.ftl", pckPath, serviceImplPath);
+		createFile.writerPage(context, "Controller.ftl", pckPath, controllerPath);
+		createFile.writerPage(context, "AppController.ftl", pckPath, appControllerPath);
 		if (isHtml) {
-			CreateFile.writerPage(context, "htmlList.ftl", webPath, htmlPath);
-			CreateFile.writerPage(context, "js.ftl", webPath, jsPath);
+			createFile.writerPage(context, "htmlList.ftl", webPath, htmlPath);
+			createFile.writerPage(context, "js.ftl", webPath, jsPath);
 		}
 
 		log.info("----------------------------代码生成完毕---------------------------");

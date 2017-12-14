@@ -1,7 +1,6 @@
 package ${bussPackage}.mapper;
 
-import java.util.List;
-
+import ${bussPackage}.core.Mapper;
 import ${bussPackage}.entity.${className};
 
 /**
@@ -9,16 +8,6 @@ import ${bussPackage}.entity.${className};
  * @author ${author}
  * @date ${time}
  */
-public interface ${className}Mapper {
-	
-	public ${className} get${className}ByPrimaryKey(${primaryKeyShortDataType} ${primaryKey});
-
-	public List<${className}> get${className}s(${className} ${lowerName});
-
-	public int insert(${className} ${lowerName});
-
-	public int update(${className} ${lowerName});
-
-	public int delete(${primaryKeyShortDataType} ${primaryKey});
-	
+public interface ${className}Mapper extends Mapper<${className}> {
+		
 }
