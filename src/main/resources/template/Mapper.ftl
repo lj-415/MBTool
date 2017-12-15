@@ -9,5 +9,5 @@ import ${bussPackage}.entity.${className};
  * @date ${time}
  */
 public interface ${className}Mapper extends Mapper<${className}> {
-		
+	
 }

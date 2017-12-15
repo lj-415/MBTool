@@ -3,8 +3,6 @@ package ${bussPackage}.controller.app;
 #if($!primaryKeyDataType.indexOf("java.lang") < 0)
 import $!primaryKeyDataType;
 #end
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +21,6 @@ import ${bussPackage}.controller.common.BaseController;
 import ${bussPackage}.core.Page;
 import ${bussPackage}.entity.${className};
 import ${bussPackage}.service.${className}Service;
-import ${bussPackage}.utils.CommUtil;
 
 /**
  * @description ${remark}
@@ -39,6 +36,7 @@ public class App${className}Controller extends BaseController {
 	
 	/**
 	 * 清单
+	 * 
 	 * @param ${lowerName}
 	 * @param page
 	 * @return
@@ -54,6 +52,7 @@ public class App${className}Controller extends BaseController {
 	
 	/**
 	 * 详情
+	 * 
 	 * @param ${primaryKey}
 	 * @return
 	 */
@@ -70,21 +69,14 @@ public class App${className}Controller extends BaseController {
 	}
 	
 	/**
-	 * 新增更新
+	 * 新增、更新
+	 * 
 	 * @param ${lowerName}
 	 * @return
 	 */
 	@RequestMapping("/app/merge${className}")
-	public Object merge${className}(@ModelAttribute("${lowerName}") ${className} ${lowerName}) {
-		int flag = -1;
-		if (${lowerName}.getId() != null) {// 更新
-			flag = ${lowerName}Service.update(${lowerName});
-		} else {// 新增
-			${lowerName}.setStatus(Constants.NUMBER.ZERO.getValue());
-			${lowerName}.setAddTime(CommUtil.formatDate(new Date()));
-			flag = ${lowerName}Service.insert(${lowerName});
-		}
-		
+	public Object appMerge${className}(@ModelAttribute("${lowerName}") ${className} ${lowerName}) {
+		int flag = ${lowerName}Service.merge${className}(${lowerName});
 		if (flag <= 0) {
 			initErroeMsg(map, Constants.STATUS_MSG.FAILURE.getKey(), Constants.STATUS_MSG.FAILURE.getValue());
 			return map;
@@ -96,24 +88,18 @@ public class App${className}Controller extends BaseController {
 	
 	/**
 	 * 删除
-	 * @param ${primaryKey}
+	 * 
 	 * @param ${primaryKey}s 多个ID， 用英文逗号分隔
 	 * @return
 	 */
 	@RequestMapping("/app/delete${className}")
-	public Object sysDeleteFeedback(@RequestParam(value = "${primaryKey}", required = false) ${primaryKeyShortDataType} ${primaryKey}, @RequestParam(value = "${primaryKey}s", required = false) String ${primaryKey}s) {
-		if (${primaryKey} == null && StringUtils.isBlank(${primaryKey}s)) {
+	public Object appDelete${className}(@RequestParam("${primaryKey}s") String ${primaryKey}s) {
+		if (StringUtils.isBlank(${primaryKey}s)) {
 			initErroeMsg(map, Constants.STATUS_MSG.FAILURE.getKey(), "未选择需要删除的数据");
 			return map;
 		}
-		int flag = -1;
-		if (${primaryKey} != null) {
-			flag = ${lowerName}Service.deleteByPrimaryKey(${primaryKey});
-		}
-		if (StringUtils.isNotBlank(${primaryKey}s)) {
-			List<Object> ${primaryKey}List = Arrays.asList(${primaryKey}s.split(","));
-			flag = ${lowerName}Service.deleteByPrimaryKeys(${primaryKey}List);
-		}
+		
+		int flag = ${lowerName}Service.delete${className}(${primaryKey}s);
 		if (flag < 1) {
 			initErroeMsg(map, Constants.STATUS_MSG.FAILURE.getKey(), Constants.STATUS_MSG.FAILURE.getValue());
 		}

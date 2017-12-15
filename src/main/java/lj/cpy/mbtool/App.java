@@ -53,6 +53,8 @@ public class App {
 							++ind;
 							iRow.next();
 							continue;
+						} else {
+							ind = 1;
 						}
 						Row row = iRow.next();
 						if (row == null) {

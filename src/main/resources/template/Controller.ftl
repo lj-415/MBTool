@@ -3,8 +3,6 @@ package ${bussPackage}.controller.system;
 #if($!primaryKeyDataType.indexOf("java.lang") < 0)
 import $!primaryKeyDataType;
 #end
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +25,6 @@ import ${bussPackage}.entity.${className};
 import ${bussPackage}.mv.JModelAndView;
 import ${bussPackage}.service.ConfigService;
 import ${bussPackage}.service.${className}Service;
-import ${bussPackage}.utils.CommUtil;
 
 /**
  * @description ${remark}
@@ -111,40 +108,15 @@ public class ${className}Controller extends BaseController {
 	}
 
 	/**
-	 * AJAX保存
+	 * AJAX新增、更新
 	 * 
 	 * @param ${lowerName}
 	 * @return
 	 */
-	@RequestMapping("/sys/save${className}")
+	@RequestMapping("/sys/merge${className}")
 	@ResponseBody
-	public Object sysSave${className}(@ModelAttribute("${lowerName}") ${className} ${lowerName}) {
-		int flag = -1;
-		if (${lowerName}.getId() != null) {
-			${lowerName}.setUpdateTime(CommUtil.formatDate(new Date()));
-			flag = ${lowerName}Service.update(${lowerName});
-		} else {
-			${lowerName}.setAddTime(CommUtil.formatDate(new Date()));
-			flag = ${lowerName}Service.insert(${lowerName});
-		}
-		if (flag < 1) {
-			initErroeMsg(map, Constants.STATUS_MSG.FAILURE.getKey(), Constants.STATUS_MSG.FAILURE.getValue());
-		}
-
-		return map;
-	}
-
-	/**
-	 * AJAX更新
-	 * 
-	 * @param ${lowerName}
-	 * @return
-	 */
-	@RequestMapping("/sys/update${className}")
-	@ResponseBody
-	public Object sysUpdate${className}(@ModelAttribute("${lowerName}") ${className} ${lowerName}) {
-		${lowerName}.setUpdateTime(CommUtil.formatDate(new Date()));
-		int flag = ${lowerName}Service.update(${lowerName});
+	public Object sysMerge${className}(@ModelAttribute("${lowerName}") ${className} ${lowerName}) {
+		int flag = ${lowerName}Service.merge${className}(${lowerName});
 		if (flag < 1) {
 			initErroeMsg(map, Constants.STATUS_MSG.FAILURE.getKey(), Constants.STATUS_MSG.FAILURE.getValue());
 		}
@@ -155,25 +127,18 @@ public class ${className}Controller extends BaseController {
 	/**
 	 * AJAX删除
 	 * 
-	 * @param ${primaryKey}
 	 * @param ${primaryKey}s 多个ID， 用英文逗号分隔
 	 * @return
 	 */
 	@RequestMapping("/sys/del${className}")
 	@ResponseBody
-	public Object sysDelete${className}(@RequestParam(value = "${primaryKey}", required = false) ${primaryKeyShortDataType} ${primaryKey}, @RequestParam(value = "${primaryKey}s", required = false) String ${primaryKey}s) {
-		if (${primaryKey} == null && StringUtils.isBlank(${primaryKey}s)) {
+	public Object sysDelete${className}(@RequestParam("${primaryKey}s") String ${primaryKey}s) {
+		if (StringUtils.isBlank(${primaryKey}s)) {
 			initErroeMsg(map, Constants.STATUS_MSG.FAILURE.getKey(), "未选择需要删除的数据");
 			return map;
 		}
-		int flag = -1;
-		if (${primaryKey} != null) {
-			flag = ${lowerName}Service.deleteByPrimaryKey(${primaryKey});
-		}
-		if (StringUtils.isNotBlank(${primaryKey}s)) {
-			List<Object> ${primaryKey}List = Arrays.asList(${primaryKey}s.split(","));
-			flag = ${lowerName}Service.deleteByPrimaryKeys(${primaryKey}List);
-		}
+		
+		int flag = ${lowerName}Service.delete${className}(${primaryKey}s);
 		if (flag < 1) {
 			initErroeMsg(map, Constants.STATUS_MSG.FAILURE.getKey(), Constants.STATUS_MSG.FAILURE.getValue());
 		}
