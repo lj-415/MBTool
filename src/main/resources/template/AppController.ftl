@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import ${bussPackage}.constant.Constants;
 import ${bussPackage}.controller.common.BaseController;
@@ -35,7 +34,7 @@ public class App${className}Controller extends BaseController {
 	private ${className}Service ${lowerName}Service;
 	
 	/**
-	 * 清单
+	 * ${remark}清单
 	 * 
 	 * @param ${lowerName}
 	 * @param page
@@ -43,15 +42,14 @@ public class App${className}Controller extends BaseController {
 	 */
 	@RequestMapping("/app/get${className}s")
 	public Object get${className}s(@ModelAttribute("${lowerName}") ${className} ${lowerName}, @ModelAttribute("page") Page page) {
-		PageHelper.startPage(page.getPageNum(), page.getPageSize());
-		List<${className}> ${lowerName}s = ${lowerName}Service.getList(${lowerName});
+		List<${className}> ${lowerName}s = ${lowerName}Service.getList(${lowerName}, page);
 		
 		setReturnData(new PageInfo<>(${lowerName}s));
 		return map;
 	}
 	
 	/**
-	 * 详情
+	 * ${remark}详情
 	 * 
 	 * @param ${primaryKey}
 	 * @return
@@ -69,7 +67,7 @@ public class App${className}Controller extends BaseController {
 	}
 	
 	/**
-	 * 新增、更新
+	 * 新增、更新${remark}
 	 * 
 	 * @param ${lowerName}
 	 * @return
@@ -87,7 +85,7 @@ public class App${className}Controller extends BaseController {
 	}
 	
 	/**
-	 * 删除
+	 * 删除${remark}
 	 * 
 	 * @param ${primaryKey}s 多个ID， 用英文逗号分隔
 	 * @return

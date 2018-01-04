@@ -20,6 +20,7 @@ public interface ${className}Service extends Service<${className}> {
 	
 	/**
 	 * 新增、更新${remark}
+	 * 
 	 * @param ${lowerName}
 	 * @return
 	 */
